@@ -17,21 +17,6 @@ namespace hls4ml_L1TSC82ProngJetModel_v0 {
     #pragma HLS DATAFLOW
 
     // hls-fpga-machine-learning insert load weights
-#ifndef __SYNTHESIS__
-    static bool loaded_weights = false;
-    if (!loaded_weights) {
-        nnet::load_weights_from_txt<batch_normalization_scale_t, 17>(s2, "s2.txt");
-        nnet::load_weights_from_txt<batch_normalization_bias_t, 17>(b2, "b2.txt");
-        nnet::load_weights_from_txt<phi1_weight_t, 1088>(w18, "w18.txt");
-        nnet::load_weights_from_txt<phi1_bias_t, 64>(b18, "b18.txt");
-        nnet::load_weights_from_txt<weight8_t, 2048>(w8, "w8.txt");
-        nnet::load_weights_from_txt<bias8_t, 32>(b8, "b8.txt");
-        nnet::load_weights_from_txt<weight11_t, 128>(w11, "w11.txt");
-        nnet::load_weights_from_txt<bias11_t, 4>(b11, "b11.txt");
-        nnet::load_weights_from_txt<weight14_t, 8>(w14, "w14.txt");
-        nnet::load_weights_from_txt<bias14_t, 2>(b14, "b14.txt");
-        loaded_weights = true;    }
-#endif
     // ****************************************
     // NETWORK INSTANTIATION
     // ****************************************
