@@ -33,9 +33,9 @@ class L1TSC82ProngJetModel_emulator_v0 : public hls4mlEmulator::Model{
 
         virtual void read_result(std::any result)
         { 
-            result_t *result_p = std::any_cast<result_t*>(result);
+            std::array<result_t, 2> *result_p = std::any_cast<std::array<result_t, 2>*>(result);
             for (int i = 0; i < N_LAYER_14; i++) {
-                result_p[i] = _layer16_out[i];
+                (*result_p)[i] = _layer16_out[i];
             }
         }
 
