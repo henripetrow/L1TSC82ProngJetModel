@@ -6,7 +6,7 @@
 #ifndef B11_H_
 #define B11_H_
 
-#ifndef __SYNTHESIS__
+#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
 bias11_t b11[4];
 #else
 bias11_t b11[4] = {-0.0234375, -0.0312500, 0.0234375, -0.0078125};

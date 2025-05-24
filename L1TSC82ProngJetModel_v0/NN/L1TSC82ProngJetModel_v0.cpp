@@ -3,9 +3,8 @@
 #include "L1TSC82ProngJetModel_v0.h"
 #include "parameters.h"
 
-
 namespace hls4ml_L1TSC82ProngJetModel_v0 {
-    void L1TSC82ProngJetModel_v0(
+void L1TSC82ProngJetModel_v0(
     input_t input_layer[N_INPUT_1_1*N_INPUT_2_1],
     result_t layer16_out[N_LAYER_14]
 ) {
@@ -16,7 +15,7 @@ namespace hls4ml_L1TSC82ProngJetModel_v0 {
     #pragma HLS INTERFACE ap_vld port=input_layer,layer16_out 
     #pragma HLS DATAFLOW
 
-    // hls-fpga-machine-learning insert load weights
+
     // ****************************************
     // NETWORK INSTANTIATION
     // ****************************************
@@ -72,3 +71,4 @@ namespace hls4ml_L1TSC82ProngJetModel_v0 {
 }
 
 } // namespace hls4ml_L1TSC82ProngJetModel_v0
+
