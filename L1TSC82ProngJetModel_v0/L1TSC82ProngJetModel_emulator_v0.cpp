@@ -41,8 +41,6 @@ class L1TSC82ProngJetModel_emulator_v0 : public hls4mlEmulator::Model{
             std::array<result_t, 2> *result_p = std::any_cast<std::array<result_t, 2>*>(result);
             for (int i = 0; i < N_LAYER_14; i++) {
                 (*result_p)[i] = _layer16_out[i];
-                std::cout << _layer16_out[i].to_float();
-                std::cout << ",";
             }
         std::cout << "\n";
         }
