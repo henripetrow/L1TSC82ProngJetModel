@@ -3,9 +3,8 @@
 #include "L1TSC82ProngJetModel_v0.h"
 #include "parameters.h"
 
-
 namespace hls4ml_L1TSC82ProngJetModel_v0 {
-    void L1TSC82ProngJetModel_v0(
+void L1TSC82ProngJetModel_v0(
     input_t input_layer[N_INPUT_1_1*N_INPUT_2_1],
     result_t layer16_out[N_LAYER_14]
 ) {
@@ -17,7 +16,7 @@ namespace hls4ml_L1TSC82ProngJetModel_v0 {
     #pragma HLS DATAFLOW
 
     // hls-fpga-machine-learning insert load weights
-#ifndef __SYNTHESIS__
+#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
     static bool loaded_weights = false;
     if (!loaded_weights) {
         nnet::load_weights_from_txt<batch_normalization_scale_t, 17>(s2, "s2.txt");
@@ -86,4 +85,4 @@ namespace hls4ml_L1TSC82ProngJetModel_v0 {
 
 }
 
-} // namespace hls4ml_L1TSC82ProngJetModel_v0
+} // namespace hls4ml_L1TSC4NGJetModel_v0

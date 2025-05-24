@@ -13,7 +13,7 @@
 
 namespace nnet {
 
-#ifndef __SYNTHESIS__
+#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
 
 #ifndef WEIGHTS_DIR
 #define WEIGHTS_DIR "weights"

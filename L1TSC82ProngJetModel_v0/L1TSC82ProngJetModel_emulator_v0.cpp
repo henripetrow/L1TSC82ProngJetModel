@@ -18,10 +18,15 @@ class L1TSC82ProngJetModel_emulator_v0 : public hls4mlEmulator::Model{
 
         virtual void prepare_input(std::any input)
         {
+            //std::cout << "NN Input\n";
             input_t* input_p = std::any_cast<input_t*>(input);
             for(int i = 0; i < N_INPUT_1_1*N_INPUT_2_1; ++i){
                 _input[i] = std::any_cast<input_t>(input_p[i]);
+                //std::cout << _input[i].to_float();
+                //std::cout << input_p[i].to_float();
+                //std::cout << "\n";
             }
+            //std::cout << "\n";
         }
 
 
@@ -33,10 +38,13 @@ class L1TSC82ProngJetModel_emulator_v0 : public hls4mlEmulator::Model{
 
         virtual void read_result(std::any result)
         { 
-            result_t *result_p = std::any_cast<result_t*>(result);
+            std::array<result_t, 2> *result_p = std::any_cast<std::array<result_t, 2>*>(result);
             for (int i = 0; i < N_LAYER_14; i++) {
-                result_p[i] = _layer16_out[i];
+                (*result_p)[i] = _layer16_out[i];
+                std::cout << _layer16_out[i].to_float();
+                std::cout << ",";
             }
+        std::cout << "\n";
         }
 
 };
