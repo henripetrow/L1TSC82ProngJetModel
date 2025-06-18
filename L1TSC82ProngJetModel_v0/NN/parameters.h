@@ -22,8 +22,8 @@
 // hls-fpga-machine-learning insert weights
 #include "weights/s2.h"
 #include "weights/b2.h"
-#include "weights/w18.h"
-#include "weights/b18.h"
+#include "weights/w17.h"
+#include "weights/b17.h"
 #include "weights/w8.h"
 #include "weights/b8.h"
 #include "weights/w11.h"
@@ -94,7 +94,7 @@ struct config18 : nnet::conv1d_config {
     typedef phi1_weight_t weight_t;
     typedef config18_mult mult_config;
     template<unsigned K, unsigned S, unsigned W>
-    using scale_index = nnet::scale_index_unscaled<K, S, W>;
+    using scale_index = nnet::scale_index_regular<K, S, W>;
     template<class data_T, class res_T, class CONFIG_T>
     using conv_kernel = nnet::pointwise_conv_18<data_T, res_T, CONFIG_T>;
 };
@@ -134,8 +134,8 @@ struct config8 : nnet::dense_config {
     static const unsigned io_type = nnet::io_parallel;
     static const unsigned strategy = nnet::latency;
     static const unsigned reuse_factor = 1;
-    static const unsigned n_zeros = 28;
-    static const unsigned n_nonzeros = 2020;
+    static const unsigned n_zeros = 30;
+    static const unsigned n_nonzeros = 2018;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
     typedef model_default_t accum_t;

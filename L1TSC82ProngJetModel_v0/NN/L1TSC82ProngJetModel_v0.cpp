@@ -26,13 +26,13 @@ void L1TSC82ProngJetModel_v0(
     #pragma HLS ARRAY_PARTITION variable=layer2_out complete dim=0
     nnet::normalize<input_t, layer2_t, config2>(input_layer, layer2_out, s2, b2); // batch_normalization
 
-    phi1_result_t layer18_out[N_OUTPUTS_18*N_FILT_18];
-    #pragma HLS ARRAY_PARTITION variable=layer18_out complete dim=0
-    nnet::pointwise_conv_1d_cl<layer2_t, phi1_result_t, config18>(layer2_out, layer18_out, w18, b18); // phi1
+    phi1_result_t layer17_out[N_OUTPUTS_17*N_FILT_17];
+    #pragma HLS ARRAY_PARTITION variable=layer17_out complete dim=0
+    nnet::pointwise_conv_1d_cl<layer2_t, phi1_result_t, config18>(layer2_out, layer17_out, w17, b17); // phi1
 
     layer5_t layer5_out[N_LAYER_1_3*N_LAYER_2_3];
     #pragma HLS ARRAY_PARTITION variable=layer5_out complete dim=0
-    nnet::relu<phi1_result_t, layer5_t, relu_config5>(layer18_out, layer5_out); // q_activation
+    nnet::relu<phi1_result_t, layer5_t, relu_config5>(layer17_out, layer5_out); // q_activation
 
     layer6_t layer6_out[N_LAYER_1_3*N_LAYER_2_3];
     #pragma HLS ARRAY_PARTITION variable=layer6_out complete dim=0
@@ -71,4 +71,3 @@ void L1TSC82ProngJetModel_v0(
 }
 
 } // namespace hls4ml_L1TSC82ProngJetModel_v0
-

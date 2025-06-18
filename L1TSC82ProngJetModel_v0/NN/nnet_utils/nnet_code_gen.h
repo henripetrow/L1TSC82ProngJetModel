@@ -23,7 +23,7 @@ template <class data_T, class res_T, typename CONFIG_T> class PointwiseConv1D {
 
 // hls4ml insert code
 template<class data_T, typename CONFIG_T>
-class fill_buffer_18 : public FillConv1DBuffer<data_T, CONFIG_T> {
+class fill_buffer_18 : public nnet::FillConv1DBuffer<data_T, CONFIG_T> {
     public:
     static void fill_buffer(
         data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],

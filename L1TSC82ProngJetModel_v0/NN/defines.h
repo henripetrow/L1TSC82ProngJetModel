@@ -12,8 +12,8 @@
 #define N_INPUT_2_1 17
 #define N_INPUT_1_1 8
 #define N_INPUT_2_1 17
-#define N_OUTPUTS_18 8
-#define N_FILT_18 64
+#define N_OUTPUTS_17 8
+#define N_FILT_17 64
 #define N_LAYER_1_3 8
 #define N_LAYER_2_3 64
 #define N_LAYER_1_3 8
