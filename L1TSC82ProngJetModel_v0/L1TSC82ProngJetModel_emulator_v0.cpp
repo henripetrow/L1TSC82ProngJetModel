@@ -11,8 +11,8 @@ using namespace hls4ml_L1TSC82ProngJetModel_v0;
 
 class L1TSC82ProngJetModel_emulator_v0 : public hls4mlEmulator::Model{
     private:
-        input_t _input[N_INPUT_1_1*N_INPUT_2_1];
-        result_t _layer16_out[N_LAYER_14];
+            input_t _input_layer[N_INPUT_1_1*N_INPUT_2_1];
+            result_t _layer25_out[N_LAYER_23];
     public:
 
 
@@ -20,25 +20,24 @@ class L1TSC82ProngJetModel_emulator_v0 : public hls4mlEmulator::Model{
         {
             input_t* input_p = std::any_cast<input_t*>(input);
             for(int i = 0; i < N_INPUT_1_1*N_INPUT_2_1; ++i){
-                 _input[i] = std::any_cast<input_t>(input_p[i]);
-                std::cout << _input[i];
-                std::cout << ",";
+                _input_layer[i] = std::any_cast<input_t>(input_p[i]);
             }
         }
 
+
+
         virtual void predict()
         {
-            L1TSC82ProngJetModel_v0(_input, _layer16_out);  
+            L1TSC82ProngJetModel_v0(_input_layer, _layer25_out);
+            
         }
 
         virtual void read_result(std::any result)
         { 
-            std::array<result_t, 1> *result_p = std::any_cast<std::array<result_t, 1>*>(result);
-            (*result_p)[0] = _layer16_out[1];
-            std::cout << _layer16_out[0];
-            std::cout << ",";
-            std::cout << _layer16_out[1];
-            std::cout << "\n";
+            result_t* result_p = std::any_cast<result_t*>(result);
+            for (int i = 0; i < N_LAYER_23; ++i ){
+                result_p[i] = _layer25_out[i];  
+            }
         }
 
 };
