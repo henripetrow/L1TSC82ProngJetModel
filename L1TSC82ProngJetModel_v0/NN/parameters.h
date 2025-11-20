@@ -41,7 +41,7 @@
 // hls-fpga-machine-learning insert layer-config
 // batch_normalization
 struct config2 : nnet::batchnorm_config {
-    static const unsigned n_in = N_INPUT_1_1*N_INPUT_2_1;
+    static const unsigned n_in = 8*20;
     static const unsigned n_filt = 20;
     static const unsigned n_scale_bias = (n_filt == -1) ? n_in : n_filt;
     static const unsigned io_type = nnet::io_parallel;
@@ -57,7 +57,7 @@ struct config2 : nnet::batchnorm_config {
 // phi1
 struct config29_mult : nnet::dense_config {
     static const unsigned n_in = 160;
-    static const unsigned n_out = 512;
+    static const unsigned n_out = 416;
     static const unsigned reuse_factor = 1;
     static const unsigned strategy = nnet::latency;
     static const unsigned n_zeros = 0;
@@ -78,7 +78,7 @@ struct config29 : nnet::conv1d_config {
     static const unsigned n_chan = 20;
     static const unsigned filt_width = 1;
     static const unsigned kernel_size = filt_width;
-    static const unsigned n_filt = 64;
+    static const unsigned n_filt = 52;
     static const unsigned stride_width = 1;
     static const unsigned dilation = 1;
     static const unsigned out_width = 8;
@@ -108,7 +108,7 @@ const ap_uint<config29::filt_width> config29::pixels[] = {0};
 
 // q_activation
 struct hard_tanh_config5 {
-    static const unsigned n_in = 512;
+    static const unsigned n_in = 416;
     static const slope5_t slope;
     static const shift5_t shift;
     static const unsigned io_type = nnet::io_parallel;
@@ -119,8 +119,8 @@ const shift5_t hard_tanh_config5::shift = 0.5;
 
 // phi2
 struct config30_mult : nnet::dense_config {
-    static const unsigned n_in = 512;
-    static const unsigned n_out = 512;
+    static const unsigned n_in = 416;
+    static const unsigned n_out = 160;
     static const unsigned reuse_factor = 1;
     static const unsigned strategy = nnet::latency;
     static const unsigned n_zeros = 0;
@@ -138,10 +138,10 @@ struct config30 : nnet::conv1d_config {
     static const unsigned pad_left = 0;
     static const unsigned pad_right = 0;
     static const unsigned in_width = 8;
-    static const unsigned n_chan = 64;
+    static const unsigned n_chan = 52;
     static const unsigned filt_width = 1;
     static const unsigned kernel_size = filt_width;
-    static const unsigned n_filt = 64;
+    static const unsigned n_filt = 20;
     static const unsigned stride_width = 1;
     static const unsigned dilation = 1;
     static const unsigned out_width = 8;
@@ -171,7 +171,7 @@ const ap_uint<config30::filt_width> config30::pixels[] = {0};
 
 // q_activation_1
 struct hard_tanh_config8 {
-    static const unsigned n_in = 512;
+    static const unsigned n_in = 160;
     static const slope8_t slope;
     static const shift8_t shift;
     static const unsigned io_type = nnet::io_parallel;
@@ -182,8 +182,8 @@ const shift8_t hard_tanh_config8::shift = 0.5;
 
 // phi3
 struct config31_mult : nnet::dense_config {
-    static const unsigned n_in = 512;
-    static const unsigned n_out = 256;
+    static const unsigned n_in = 160;
+    static const unsigned n_out = 32;
     static const unsigned reuse_factor = 1;
     static const unsigned strategy = nnet::latency;
     static const unsigned n_zeros = 0;
@@ -201,10 +201,10 @@ struct config31 : nnet::conv1d_config {
     static const unsigned pad_left = 0;
     static const unsigned pad_right = 0;
     static const unsigned in_width = 8;
-    static const unsigned n_chan = 64;
+    static const unsigned n_chan = 20;
     static const unsigned filt_width = 1;
     static const unsigned kernel_size = filt_width;
-    static const unsigned n_filt = 32;
+    static const unsigned n_filt = 4;
     static const unsigned stride_width = 1;
     static const unsigned dilation = 1;
     static const unsigned out_width = 8;
@@ -234,7 +234,7 @@ const ap_uint<config31::filt_width> config31::pixels[] = {0};
 
 // q_activation_2
 struct hard_tanh_config11 {
-    static const unsigned n_in = 256;
+    static const unsigned n_in = 32;
     static const slope11_t slope;
     static const shift11_t shift;
     static const unsigned io_type = nnet::io_parallel;
@@ -245,7 +245,7 @@ const shift11_t hard_tanh_config11::shift = 0.5;
 
 // q_activation_3
 struct linear_config12 : nnet::activ_config {
-    static const unsigned n_in = 256;
+    static const unsigned n_in = 32;
     static const unsigned table_size = 1024;
     static const unsigned io_type = nnet::io_parallel;
     static const unsigned reuse_factor = 1;
@@ -255,7 +255,7 @@ struct linear_config12 : nnet::activ_config {
 // global_max_pooling1d
 struct config13 : nnet::pooling1d_config {
     static const unsigned n_in = 8;
-    static const unsigned n_filt = 32;
+    static const unsigned n_filt = 4;
     static const nnet::Pool_Op pool_op = nnet::Max;
     static const unsigned reuse_factor = 1;
     typedef model_default_t accum_t;
@@ -263,13 +263,13 @@ struct config13 : nnet::pooling1d_config {
 
 // rho1
 struct config14 : nnet::dense_config {
-    static const unsigned n_in = 32;
-    static const unsigned n_out = 64;
+    static const unsigned n_in = 4;
+    static const unsigned n_out = 36;
     static const unsigned io_type = nnet::io_parallel;
     static const unsigned strategy = nnet::latency;
     static const unsigned reuse_factor = 1;
-    static const unsigned n_zeros = 18;
-    static const unsigned n_nonzeros = 2030;
+    static const unsigned n_zeros = 0;
+    static const unsigned n_nonzeros = 144;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
     typedef model_default_t accum_t;
@@ -284,7 +284,7 @@ struct config14 : nnet::dense_config {
 
 // q_activation_4
 struct hard_tanh_config16 {
-    static const unsigned n_in = 64;
+    static const unsigned n_in = 36;
     static const slope16_t slope;
     static const shift16_t shift;
     static const unsigned io_type = nnet::io_parallel;
@@ -295,13 +295,13 @@ const shift16_t hard_tanh_config16::shift = 0.5;
 
 // rho2
 struct config17 : nnet::dense_config {
-    static const unsigned n_in = 64;
-    static const unsigned n_out = 32;
+    static const unsigned n_in = 36;
+    static const unsigned n_out = 4;
     static const unsigned io_type = nnet::io_parallel;
     static const unsigned strategy = nnet::latency;
     static const unsigned reuse_factor = 1;
-    static const unsigned n_zeros = 37;
-    static const unsigned n_nonzeros = 2011;
+    static const unsigned n_zeros = 2;
+    static const unsigned n_nonzeros = 142;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
     typedef model_default_t accum_t;
@@ -316,7 +316,7 @@ struct config17 : nnet::dense_config {
 
 // q_activation_5
 struct hard_tanh_config19 {
-    static const unsigned n_in = 32;
+    static const unsigned n_in = 4;
     static const slope19_t slope;
     static const shift19_t shift;
     static const unsigned io_type = nnet::io_parallel;
@@ -327,13 +327,13 @@ const shift19_t hard_tanh_config19::shift = 0.5;
 
 // rho3
 struct config20 : nnet::dense_config {
-    static const unsigned n_in = 32;
-    static const unsigned n_out = 16;
+    static const unsigned n_in = 4;
+    static const unsigned n_out = 4;
     static const unsigned io_type = nnet::io_parallel;
     static const unsigned strategy = nnet::latency;
     static const unsigned reuse_factor = 1;
-    static const unsigned n_zeros = 5;
-    static const unsigned n_nonzeros = 507;
+    static const unsigned n_zeros = 0;
+    static const unsigned n_nonzeros = 16;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
     typedef model_default_t accum_t;
@@ -348,7 +348,7 @@ struct config20 : nnet::dense_config {
 
 // q_activation_6
 struct hard_tanh_config22 {
-    static const unsigned n_in = 16;
+    static const unsigned n_in = 4;
     static const slope22_t slope;
     static const shift22_t shift;
     static const unsigned io_type = nnet::io_parallel;
@@ -359,13 +359,13 @@ const shift22_t hard_tanh_config22::shift = 0.5;
 
 // output
 struct config23 : nnet::dense_config {
-    static const unsigned n_in = 16;
+    static const unsigned n_in = 4;
     static const unsigned n_out = 1;
     static const unsigned io_type = nnet::io_parallel;
     static const unsigned strategy = nnet::latency;
     static const unsigned reuse_factor = 1;
     static const unsigned n_zeros = 0;
-    static const unsigned n_nonzeros = 16;
+    static const unsigned n_nonzeros = 4;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
     typedef model_default_t accum_t;
