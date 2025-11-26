@@ -22,12 +22,12 @@
 // hls-fpga-machine-learning insert weights
 #include "weights/s2.h"
 #include "weights/b2.h"
-#include "weights/w26.h"
-#include "weights/b26.h"
-#include "weights/w27.h"
-#include "weights/b27.h"
-#include "weights/w28.h"
-#include "weights/b28.h"
+#include "weights/w29.h"
+#include "weights/b29.h"
+#include "weights/w30.h"
+#include "weights/b30.h"
+#include "weights/w31.h"
+#include "weights/b31.h"
 #include "weights/w14.h"
 #include "weights/b14.h"
 #include "weights/w17.h"
@@ -41,7 +41,7 @@
 // hls-fpga-machine-learning insert layer-config
 // batch_normalization
 struct config2 : nnet::batchnorm_config {
-    static const unsigned n_in = 8*20;
+    static const unsigned n_in = N_INPUT_1_1*N_INPUT_2_1;
     static const unsigned n_filt = 20;
     static const unsigned n_scale_bias = (n_filt == -1) ? n_in : n_filt;
     static const unsigned io_type = nnet::io_parallel;
@@ -100,7 +100,7 @@ struct config29 : nnet::conv1d_config {
     typedef phi1_weight_t weight_t;
     typedef config29_mult mult_config;
     template<unsigned K, unsigned S, unsigned W>
-    using scale_index = nnet::scale_index_regular<K, S, W>;
+    using scale_index = nnet::scale_index_unscaled<K, S, W>;
     template<class data_T, class res_T, class CONFIG_T>
     using conv_kernel = nnet::pointwise_conv_29<data_T, res_T, CONFIG_T>;
 };
@@ -163,7 +163,7 @@ struct config30 : nnet::conv1d_config {
     typedef phi2_weight_t weight_t;
     typedef config30_mult mult_config;
     template<unsigned K, unsigned S, unsigned W>
-    using scale_index = nnet::scale_index_regular<K, S, W>;
+    using scale_index = nnet::scale_index_unscaled<K, S, W>;
     template<class data_T, class res_T, class CONFIG_T>
     using conv_kernel = nnet::pointwise_conv_30<data_T, res_T, CONFIG_T>;
 };
@@ -226,7 +226,7 @@ struct config31 : nnet::conv1d_config {
     typedef phi3_weight_t weight_t;
     typedef config31_mult mult_config;
     template<unsigned K, unsigned S, unsigned W>
-    using scale_index = nnet::scale_index_regular<K, S, W>;
+    using scale_index = nnet::scale_index_unscaled<K, S, W>;
     template<class data_T, class res_T, class CONFIG_T>
     using conv_kernel = nnet::pointwise_conv_31<data_T, res_T, CONFIG_T>;
 };
@@ -300,8 +300,8 @@ struct config17 : nnet::dense_config {
     static const unsigned io_type = nnet::io_parallel;
     static const unsigned strategy = nnet::latency;
     static const unsigned reuse_factor = 1;
-    static const unsigned n_zeros = 2;
-    static const unsigned n_nonzeros = 142;
+    static const unsigned n_zeros = 1;
+    static const unsigned n_nonzeros = 143;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
     typedef model_default_t accum_t;

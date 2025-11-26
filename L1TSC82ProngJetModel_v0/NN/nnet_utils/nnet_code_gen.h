@@ -23,7 +23,7 @@ template <class data_T, class res_T, typename CONFIG_T> class PointwiseConv1D {
 
 // hls4ml insert code
 template<class data_T, typename CONFIG_T>
-class fill_buffer_29 : public nnet::FillConv1DBuffer<data_T, CONFIG_T> {
+class fill_buffer_29 : public FillConv1DBuffer<data_T, CONFIG_T> {
     public:
     static void fill_buffer(
         data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
@@ -65,7 +65,7 @@ class fill_buffer_29 : public nnet::FillConv1DBuffer<data_T, CONFIG_T> {
     }
 };
 template<class data_T, class res_T, typename CONFIG_T>
-class pointwise_conv_29 : public nnet::Conv1DKernel<data_T, res_T, CONFIG_T> {
+class pointwise_conv_29 : public Conv1DKernel<data_T, res_T, CONFIG_T> {
   public:
     static void conv(
                      data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
@@ -87,7 +87,7 @@ class pointwise_conv_29 : public nnet::Conv1DKernel<data_T, res_T, CONFIG_T> {
             }
         }
 
-        nnet::pointwise_conv_1d_latency_cl<data_T, res_T, CONFIG_T>(data_tmp[0], res_tmp[0], weights, biases);
+        pointwise_conv_1d_latency_cl<data_T, res_T, CONFIG_T>(data_tmp[0], res_tmp[0], weights, biases);
 
     RFOutputLoop:
         for (int jj = 0; jj < CONFIG_T::reuse_factor; jj++) {
@@ -101,7 +101,7 @@ class pointwise_conv_29 : public nnet::Conv1DKernel<data_T, res_T, CONFIG_T> {
     }
 };
 template<class data_T, typename CONFIG_T>
-class fill_buffer_30 : public nnet::FillConv1DBuffer<data_T, CONFIG_T> {
+class fill_buffer_30 : public FillConv1DBuffer<data_T, CONFIG_T> {
     public:
     static void fill_buffer(
         data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
@@ -143,7 +143,7 @@ class fill_buffer_30 : public nnet::FillConv1DBuffer<data_T, CONFIG_T> {
     }
 };
 template<class data_T, class res_T, typename CONFIG_T>
-class pointwise_conv_30 : public nnet::Conv1DKernel<data_T, res_T, CONFIG_T> {
+class pointwise_conv_30 : public Conv1DKernel<data_T, res_T, CONFIG_T> {
   public:
     static void conv(
                      data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
@@ -165,7 +165,7 @@ class pointwise_conv_30 : public nnet::Conv1DKernel<data_T, res_T, CONFIG_T> {
             }
         }
 
-        nnet::pointwise_conv_1d_latency_cl<data_T, res_T, CONFIG_T>(data_tmp[0], res_tmp[0], weights, biases);
+        pointwise_conv_1d_latency_cl<data_T, res_T, CONFIG_T>(data_tmp[0], res_tmp[0], weights, biases);
 
     RFOutputLoop:
         for (int jj = 0; jj < CONFIG_T::reuse_factor; jj++) {
@@ -179,7 +179,7 @@ class pointwise_conv_30 : public nnet::Conv1DKernel<data_T, res_T, CONFIG_T> {
     }
 };
 template<class data_T, typename CONFIG_T>
-class fill_buffer_31 : public nnet::FillConv1DBuffer<data_T, CONFIG_T> {
+class fill_buffer_31 : public FillConv1DBuffer<data_T, CONFIG_T> {
     public:
     static void fill_buffer(
         data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
@@ -221,7 +221,7 @@ class fill_buffer_31 : public nnet::FillConv1DBuffer<data_T, CONFIG_T> {
     }
 };
 template<class data_T, class res_T, typename CONFIG_T>
-class pointwise_conv_31 : public nnet::Conv1DKernel<data_T, res_T, CONFIG_T> {
+class pointwise_conv_31 : public Conv1DKernel<data_T, res_T, CONFIG_T> {
   public:
     static void conv(
                      data_T data[CONFIG_T::in_width * CONFIG_T::n_chan],
@@ -243,7 +243,7 @@ class pointwise_conv_31 : public nnet::Conv1DKernel<data_T, res_T, CONFIG_T> {
             }
         }
 
-        nnet::pointwise_conv_1d_latency_cl<data_T, res_T, CONFIG_T>(data_tmp[0], res_tmp[0], weights, biases);
+        pointwise_conv_1d_latency_cl<data_T, res_T, CONFIG_T>(data_tmp[0], res_tmp[0], weights, biases);
 
     RFOutputLoop:
         for (int jj = 0; jj < CONFIG_T::reuse_factor; jj++) {

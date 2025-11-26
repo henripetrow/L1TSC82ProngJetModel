@@ -24,7 +24,7 @@ namespace nnet {
 
 // Common type definitions
 enum io_type { io_parallel = 0, io_stream };
-enum strategy { latency, resource, resource_unrolled, distributed_arithmetic };
+enum strategy { latency, resource, resource_unrolled };
 
 /* ---
  * Balanced tree reduce implementation.

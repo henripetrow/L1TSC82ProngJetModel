@@ -5,7 +5,6 @@
 #include "hls_stream.h"
 #include "nnet_common.h"
 #include "nnet_conv_stream.h"
-#include <cassert>
 
 namespace nnet {
 
@@ -72,12 +71,10 @@ void conv_2d_cl(
            "Only \"linebuffer\" implementation is supported in Vitis HLS.");
 
     #pragma HLS INLINE recursive
-    if (CONFIG_T::strategy == nnet::latency || CONFIG_T::strategy == nnet::distributed_arithmetic) {
+    if (CONFIG_T::strategy == nnet::latency) {
         conv_2d_buffer_latency_cl<data_T, res_T, CONFIG_T>(data, res, weights, biases);
-    } else if (CONFIG_T::strategy == nnet::resource || CONFIG_T::strategy == nnet::resource_unrolled) {
-        conv_2d_buffer_resource_cl<data_T, res_T, CONFIG_T>(data, res, weights, biases);
     } else {
-        assert(false && "Unsupported strategy for conv_2d_cl");
+        conv_2d_buffer_resource_cl<data_T, res_T, CONFIG_T>(data, res, weights, biases);
     }
 }
 
