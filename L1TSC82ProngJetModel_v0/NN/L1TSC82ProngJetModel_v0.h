@@ -14,6 +14,7 @@ void L1TSC82ProngJetModel_v0(
     input_t input_layer[N_INPUT_1_1*N_INPUT_2_1],
     result_t layer25_out[N_LAYER_23]
 );
+
 } // namespace hls4ml_L1TSC82ProngJetModel_v0
 
 #endif

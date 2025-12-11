@@ -28,3 +28,5 @@ install: all
 
 clean:
 	rm L1TSC82ProngJetModel_*.so
+	rm ./L1TSC82ProngJetModel_v0/*.so
+	rm ./L1TSC82ProngJetModel_v0/*.o

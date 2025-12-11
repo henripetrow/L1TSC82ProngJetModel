@@ -1,5 +1,3 @@
-//#define __HLS_DEBUG__
-#define __INPUT_OUTPUT_PRINT__
 #include <iostream>
 
 #include "L1TSC82ProngJetModel_v0.h"
@@ -48,16 +46,10 @@ void L1TSC82ProngJetModel_v0(
     layer2_t layer2_out[N_INPUT_1_1*N_INPUT_2_1];
     #pragma HLS ARRAY_PARTITION variable=layer2_out complete dim=0
     nnet::normalize<input_t, layer2_t, config2>(input_layer, layer2_out, s2, b2); // batch_normalization
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<layer2_t>(layer2_out, "batch_normalization", N_INPUT_1_1*N_INPUT_2_1);
-#endif
 
     phi1_result_t layer29_out[N_OUTPUTS_29*N_FILT_29];
     #pragma HLS ARRAY_PARTITION variable=layer29_out complete dim=0
     nnet::pointwise_conv_1d_cl<layer2_t, phi1_result_t, config29>(layer2_out, layer29_out, w29, b29); // phi1
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<phi1_result_t>(layer29_out, "phi1", N_OUTPUTS_29*N_FILT_29);
-#endif
 
     layer5_t layer5_out[N_LAYER_1_3*N_LAYER_2_3];
     #pragma HLS ARRAY_PARTITION variable=layer5_out complete dim=0
@@ -66,9 +58,6 @@ void L1TSC82ProngJetModel_v0(
     phi2_result_t layer30_out[N_OUTPUTS_30*N_FILT_30];
     #pragma HLS ARRAY_PARTITION variable=layer30_out complete dim=0
     nnet::pointwise_conv_1d_cl<layer5_t, phi2_result_t, config30>(layer5_out, layer30_out, w30, b30); // phi2
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<phi2_result_t>(layer30_out, "phi2", N_OUTPUTS_30*N_FILT_30);
-#endif
 
     layer8_t layer8_out[N_LAYER_1_6*N_LAYER_2_6];
     #pragma HLS ARRAY_PARTITION variable=layer8_out complete dim=0
@@ -77,9 +66,6 @@ void L1TSC82ProngJetModel_v0(
     phi3_result_t layer31_out[N_OUTPUTS_31*N_FILT_31];
     #pragma HLS ARRAY_PARTITION variable=layer31_out complete dim=0
     nnet::pointwise_conv_1d_cl<layer8_t, phi3_result_t, config31>(layer8_out, layer31_out, w31, b31); // phi3
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<phi3_result_t>(layer31_out, "phi3", N_OUTPUTS_31*N_FILT_31);
-#endif
 
     layer11_t layer11_out[N_LAYER_1_9*N_LAYER_2_9];
     #pragma HLS ARRAY_PARTITION variable=layer11_out complete dim=0
@@ -92,16 +78,10 @@ void L1TSC82ProngJetModel_v0(
     layer13_t layer13_out[N_FILT_13];
     #pragma HLS ARRAY_PARTITION variable=layer13_out complete dim=0
     nnet::global_pooling1d_cl<layer12_t, layer13_t, config13>(layer12_out, layer13_out); // global_max_pooling1d
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<layer13_t>(layer13_out, "global_max_pooling1d", N_FILT_13);
-#endif
 
     layer14_t layer14_out[N_LAYER_14];
     #pragma HLS ARRAY_PARTITION variable=layer14_out complete dim=0
-    nnet::dense<layer13_t, layer14_t, config14>(layer13_out, layer14_out, ww14, bb14); // rho1
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<layer14_t>(layer14_out, "rho1", N_LAYER_14);
-#endif
+    nnet::dense<layer13_t, layer14_t, config14>(layer13_out, layer14_out, w14, b14); // rho1
 
     layer15_t layer15_out[N_LAYER_14];
     #pragma HLS ARRAY_PARTITION variable=layer15_out complete dim=0
@@ -114,9 +94,6 @@ void L1TSC82ProngJetModel_v0(
     rho2_result_t layer17_out[N_LAYER_17];
     #pragma HLS ARRAY_PARTITION variable=layer17_out complete dim=0
     nnet::dense<layer16_t, rho2_result_t, config17>(layer16_out, layer17_out, w17, b17); // rho2
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<rho2_result_t>(layer17_out, "rho2", N_LAYER_17);
-#endif
 
     layer19_t layer19_out[N_LAYER_17];
     #pragma HLS ARRAY_PARTITION variable=layer19_out complete dim=0
@@ -125,9 +102,6 @@ void L1TSC82ProngJetModel_v0(
     rho3_result_t layer20_out[N_LAYER_20];
     #pragma HLS ARRAY_PARTITION variable=layer20_out complete dim=0
     nnet::dense<layer19_t, rho3_result_t, config20>(layer19_out, layer20_out, w20, b20); // rho3
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<rho3_result_t>(layer20_out, "rho3", N_LAYER_20);
-#endif
 
     layer22_t layer22_out[N_LAYER_20];
     #pragma HLS ARRAY_PARTITION variable=layer22_out complete dim=0
@@ -136,16 +110,12 @@ void L1TSC82ProngJetModel_v0(
     layer23_t layer23_out[N_LAYER_23];
     #pragma HLS ARRAY_PARTITION variable=layer23_out complete dim=0
     nnet::dense<layer22_t, layer23_t, config23>(layer22_out, layer23_out, w23, b23); // output
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<layer23_t>(layer23_out, "output", N_LAYER_23);
-#endif
 
     nnet::sigmoid<layer23_t, result_t, sigmoid_config25>(layer23_out, layer25_out); // output_sigmoid_activation
-#ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
-    nnet::save_layer_output<result_t>(layer25_out, "output_sigmoid_activation", N_LAYER_23);
-#endif
 
-#ifdef __HLS_DEBUG__
+
+
+
 std::cout << "'input' : [" ;
 for (int i = 0; i < 8*20; i++) {
     std::cout << (double)input_layer[i] << ",";
@@ -158,27 +128,12 @@ for (int i = 0; i < 8*20; i++) {
 }
 std::cout << "]," << std::endl;
 
-// phi1
 std::cout << "'phi1' : [" ;
 for (int i = 0; i < 8*52; i++) {
     std::cout << (double)layer29_out[i] << ",";
 }
 std::cout << "]," << std::endl;
 
-std::cout << "'phi1_bias_b29' : [" ;
-for (int i = 0; i < 52; i++) {
-    std::cout << b29[i] << ",";
-}
-std::cout << "]," << std::endl;
-
-std::cout << "'phi1_weight_w29' : [" ;
-for (int i = 0; i < 1040; i++) {
-    std::cout << w29[i] << ",";
-}
-std::cout << "]," << std::endl;
-
-
-// ph2
 std::cout << "'phi2' : [" ;
 for (int i = 0; i < 8*20; i++) {
     std::cout << layer30_out[i] << ",";
@@ -197,79 +152,40 @@ for (int i = 0; i < 4; i++) {
 }
 std::cout << "]," << std::endl;
 
-
-//  rho1
 std::cout << "'rho1' : [" ;
 for (int i = 0; i < 36; i++) {
     std::cout << layer14_out[i] << ",";
 }
 std::cout << "]," << std::endl;
 
-std::cout << "'rho1_bias_b14' : [" ;
-for (int i = 0; i < 36; i++) {
-    std::cout << bb14[i] << ",";
-}
-std::cout << "]," << std::endl;
-
-std::cout << "'rho1_weight_w14' : [" ;
-for (int i = 0; i < 144; i++) {
-    std::cout << ww14[i] << ",";
-}
-std::cout << "]," << std::endl;
-
-
-// rho2
-std::cout << "'rho2' : [" ;
+std::cout << "rho2[" ;
 for (int i = 0; i < 4; i++) {
     std::cout << layer17_out[i] << ",";
 }
 std::cout << "]," << std::endl;
 
-std::cout << "'rho2_bias_b17' : [" ;
-for (int i = 0; i < 4; i++) {
-    std::cout << b17[i] << ",";
-}
-std::cout << "]," << std::endl;
-
-std::cout << "'rho2_weight_w17' : [" ;
-for (int i = 0; i < 144; i++) {
-    std::cout << w17[i] << ",";
-}
-std::cout << "]," << std::endl;
-
-
-// rho3
-std::cout << "'rho3' : [" ;
+std::cout << "rho3[" ;
 for (int i = 0; i < 4; i++) {
     std::cout << layer20_out[i] << ",";
 }
 std::cout << "]," << std::endl;
 
-std::cout << "'output' : [" ;
+std::cout << "output[" ;
 for (int i = 0; i < 1; i++) {
     std::cout << layer23_out[i];
 }
 std::cout << "]," << std::endl;
 
-std::cout << "'output_act' : [" ;
+std::cout << "output_act[" ;
 for (int i = 0; i < 1; i++) {
     std::cout << layer25_out[i];
 }
 std::cout << "]" << std::endl;
-#endif
 
-#ifdef __INPUT_OUTPUT_PRINT__
 
-for (int i = 0; i < 8*20; i++) {
-    std::cout << (double)input_layer[i] << ",";
+
+
+
 }
-
-for (int i = 0; i < 1; i++) {
-    std::cout << layer25_out[i];
-}
-std::cout << std::endl;
-#endif
-}
-
 
 } // namespace hls4ml_L1TSC82ProngJetModel_v0

@@ -62,7 +62,7 @@ struct config29_mult : nnet::dense_config {
     static const unsigned strategy = nnet::latency;
     static const unsigned n_zeros = 0;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
-    typedef model_default_t accum_t;
+    typedef phi1_accum_t accum_t;
     typedef phi1_bias_t bias_t;
     typedef phi1_weight_t weight_t;
     template<class data_T, class res_T, class CONFIG_T>
@@ -95,7 +95,7 @@ struct config29 : nnet::conv1d_config {
     static const unsigned n_pixels = out_width / n_partitions;
     template<class data_T, class CONFIG_T>
     using fill_buffer = nnet::fill_buffer_29<data_T, CONFIG_T>;
-    typedef model_default_t accum_t;
+    typedef phi1_accum_t accum_t;
     typedef phi1_bias_t bias_t;
     typedef phi1_weight_t weight_t;
     typedef config29_mult mult_config;
@@ -125,7 +125,7 @@ struct config30_mult : nnet::dense_config {
     static const unsigned strategy = nnet::latency;
     static const unsigned n_zeros = 0;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
-    typedef model_default_t accum_t;
+    typedef phi2_accum_t accum_t;
     typedef phi2_bias_t bias_t;
     typedef phi2_weight_t weight_t;
     template<class data_T, class res_T, class CONFIG_T>
@@ -158,7 +158,7 @@ struct config30 : nnet::conv1d_config {
     static const unsigned n_pixels = out_width / n_partitions;
     template<class data_T, class CONFIG_T>
     using fill_buffer = nnet::fill_buffer_30<data_T, CONFIG_T>;
-    typedef model_default_t accum_t;
+    typedef phi2_accum_t accum_t;
     typedef phi2_bias_t bias_t;
     typedef phi2_weight_t weight_t;
     typedef config30_mult mult_config;
@@ -188,7 +188,7 @@ struct config31_mult : nnet::dense_config {
     static const unsigned strategy = nnet::latency;
     static const unsigned n_zeros = 0;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
-    typedef model_default_t accum_t;
+    typedef phi3_accum_t accum_t;
     typedef phi3_bias_t bias_t;
     typedef phi3_weight_t weight_t;
     template<class data_T, class res_T, class CONFIG_T>
@@ -221,7 +221,7 @@ struct config31 : nnet::conv1d_config {
     static const unsigned n_pixels = out_width / n_partitions;
     template<class data_T, class CONFIG_T>
     using fill_buffer = nnet::fill_buffer_31<data_T, CONFIG_T>;
-    typedef model_default_t accum_t;
+    typedef phi3_accum_t accum_t;
     typedef phi3_bias_t bias_t;
     typedef phi3_weight_t weight_t;
     typedef config31_mult mult_config;
@@ -258,7 +258,7 @@ struct config13 : nnet::pooling1d_config {
     static const unsigned n_filt = 4;
     static const nnet::Pool_Op pool_op = nnet::Max;
     static const unsigned reuse_factor = 1;
-    typedef model_default_t accum_t;
+    typedef global_max_pooling1d_accum_t accum_t;
 };
 
 // rho1
@@ -272,7 +272,7 @@ struct config14 : nnet::dense_config {
     static const unsigned n_nonzeros = 144;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
-    typedef model_default_t accum_t;
+    typedef rho1_accum_t accum_t;
     typedef bias14_t bias_t;
     typedef weight14_t weight_t;
     typedef layer14_index index_t;
@@ -280,6 +280,15 @@ struct config14 : nnet::dense_config {
     using kernel = nnet::DenseLatency<data_T, res_T, CONFIG_T>;
     template<class x_T, class y_T>
     using product = nnet::product::mult<x_T, y_T>;
+};
+
+// rho1_linear
+struct linear_config15 : nnet::activ_config {
+    static const unsigned n_in = 36;
+    static const unsigned table_size = 1024;
+    static const unsigned io_type = nnet::io_parallel;
+    static const unsigned reuse_factor = 1;
+    typedef rho1_linear_table_t table_t;
 };
 
 // q_activation_4
@@ -304,7 +313,7 @@ struct config17 : nnet::dense_config {
     static const unsigned n_nonzeros = 143;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
-    typedef model_default_t accum_t;
+    typedef rho2_accum_t accum_t;
     typedef bias17_t bias_t;
     typedef weight17_t weight_t;
     typedef layer17_index index_t;
@@ -336,7 +345,7 @@ struct config20 : nnet::dense_config {
     static const unsigned n_nonzeros = 16;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
-    typedef model_default_t accum_t;
+    typedef rho3_accum_t accum_t;
     typedef bias20_t bias_t;
     typedef weight20_t weight_t;
     typedef layer20_index index_t;
@@ -368,7 +377,7 @@ struct config23 : nnet::dense_config {
     static const unsigned n_nonzeros = 4;
     static const unsigned multiplier_limit = DIV_ROUNDUP(n_in * n_out, reuse_factor) - n_zeros / reuse_factor;
     static const bool store_weights_in_bram = false;
-    typedef model_default_t accum_t;
+    typedef output_accum_t accum_t;
     typedef bias23_t bias_t;
     typedef weight23_t weight_t;
     typedef layer23_index index_t;
