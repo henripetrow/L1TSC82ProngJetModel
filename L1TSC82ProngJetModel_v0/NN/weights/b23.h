@@ -9,7 +9,7 @@
 #ifdef __HLS4ML_LOAD_TXT_WEIGHTS__
 bias23_t b23[1];
 #else
-bias23_t b23[1] = {0.171875};
+bias23_t bb23[1] = {0.171875};
 
 #endif
 

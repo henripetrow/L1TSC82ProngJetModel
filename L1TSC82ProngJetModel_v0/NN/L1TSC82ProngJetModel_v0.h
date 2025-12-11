@@ -15,6 +15,6 @@ void L1TSC82ProngJetModel_v0(
     result_t layer25_out[N_LAYER_23]
 );
 
-} // namespace hls4ml_L1TSC82ProngJetModel_v0
 
+} // namespace hls4ml_L1TSC82ProngJetModel_v0
 #endif
