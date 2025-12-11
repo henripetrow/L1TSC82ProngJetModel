@@ -15,25 +15,18 @@ class L1TSC82ProngJetModel_emulator_v0 : public hls4mlEmulator::Model{
             result_t _layer25_out[N_LAYER_23];
     public:
 
-
-        virtual void prepare_input(std::any input)
-        {
+        virtual void prepare_input(std::any input){
             input_t* input_p = std::any_cast<input_t*>(input);
             for(int i = 0; i < N_INPUT_1_1*N_INPUT_2_1; ++i){
                 _input_layer[i] = std::any_cast<input_t>(input_p[i]);
             }
         }
 
-
-
-        virtual void predict()
-        {
+        virtual void predict(){
             L1TSC82ProngJetModel_v0(_input_layer, _layer25_out);
-            
         }
 
-        virtual void read_result(std::any result)
-        { 
+        virtual void read_result(std::any result){ 
             result_t* result_p = std::any_cast<result_t*>(result);
             for (int i = 0; i < N_LAYER_23; ++i ){
                 result_p[i] = _layer25_out[i];  
@@ -42,12 +35,10 @@ class L1TSC82ProngJetModel_emulator_v0 : public hls4mlEmulator::Model{
 
 };
 
-extern "C" hls4mlEmulator::Model* create_model()
-{
+extern "C" hls4mlEmulator::Model* create_model(){
     return new L1TSC82ProngJetModel_emulator_v0;
 }
 
-extern "C" void destroy_model(hls4mlEmulator::Model* m)
-{
+extern "C" void destroy_model(hls4mlEmulator::Model* m){
     delete m;
 }
